@@ -1,15 +1,25 @@
 import { Header } from './components/Header';
-import { ProductList } from './components/ProductList';
+import ProductList from './components/ProductList';
+import { useQuery } from '@apollo/client';
+import { products } from './graphql/queries';
 
-function App() {
+const App = () => {
+  const { loading, error, data } = useQuery(products);
+
   return (
     <>
-      <Header></Header>
+      <Header />
       <div>
-        <ProductList></ProductList>
+        {data && (
+          <ProductList
+            data={data.products.items}
+            loading={loading}
+            error={error}
+          />
+        )}
       </div>
     </>
   );
-}
+};
 
 export default App;
