@@ -1,11 +1,12 @@
 import { Card, Space, Typography } from 'antd';
+import AddToCartButton from '../AddToCartButton';
 import { ProductCardProps } from './ProductCard.props';
 
 const { Text } = Typography;
 const { Meta } = Card;
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  const { name, description, image } = product;
+  const { productId, variantId, name, description, price, image } = product;
 
   return (
     <Card
@@ -24,14 +25,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         />
       }
       hoverable
+      actions={[<AddToCartButton product={product} />]}
     >
       <Meta
-        title={name ?? 'Unnamed'}
-        description={
-          <Space direction="vertical">
-            <Text>{description}</Text>
-          </Space>
-        }
+        title={`$ ${price.toLocaleString()}`}
+        description={name}
         style={{ justifyContent: 'center' }}
       />
     </Card>

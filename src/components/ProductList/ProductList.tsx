@@ -11,6 +11,7 @@ const ProductList = ({ data, loading, error }: ProductListProps) => {
         gutter: 16,
       }}
       dataSource={data}
+      // dataSource={search ? nftData : undefined}
       pagination={{
         pageSize: 24,
         position: 'bottom',
@@ -26,6 +27,7 @@ const ProductList = ({ data, loading, error }: ProductListProps) => {
         console.log('product', product);
 
         const {
+          id,
           description,
           featuredAsset: { source },
           variantList: { items },
@@ -34,7 +36,7 @@ const ProductList = ({ data, loading, error }: ProductListProps) => {
         const variant = items[0];
 
         return (
-          <List.Item>
+          <List.Item key={id}>
             <ProductCard
               product={{
                 productId: variant?.productId,
