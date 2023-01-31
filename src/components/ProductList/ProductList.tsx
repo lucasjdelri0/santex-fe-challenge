@@ -2,7 +2,12 @@ import { List } from 'antd';
 import ProductCard from '../ProductCard';
 import { ProductListProps } from './ProductList.props';
 
-const ProductList = ({ data, loading, error }: ProductListProps) => {
+const ProductList = ({
+  data,
+  loading,
+  error,
+  onAddToCart,
+}: ProductListProps) => {
   console.log('ProductList', data);
 
   return (
@@ -27,7 +32,6 @@ const ProductList = ({ data, loading, error }: ProductListProps) => {
         console.log('product', product);
 
         const {
-          id,
           description,
           featuredAsset: { source },
           variantList: { items },
@@ -36,7 +40,7 @@ const ProductList = ({ data, loading, error }: ProductListProps) => {
         const variant = items[0];
 
         return (
-          <List.Item key={id}>
+          <List.Item key={variant?.id}>
             <ProductCard
               product={{
                 productId: variant?.productId,
@@ -46,6 +50,7 @@ const ProductList = ({ data, loading, error }: ProductListProps) => {
                 price: variant?.price,
                 image: source,
               }}
+              onAddToCart={(id) => onAddToCart(id)}
             />
           </List.Item>
         );

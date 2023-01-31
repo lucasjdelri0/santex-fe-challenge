@@ -5,7 +5,7 @@ import { ProductCardProps } from './ProductCard.props';
 const { Text } = Typography;
 const { Meta } = Card;
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   const { productId, variantId, name, description, price, image } = product;
 
   return (
@@ -25,7 +25,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         />
       }
       hoverable
-      actions={[<AddToCartButton product={product} />]}
+      actions={[
+        <AddToCartButton
+          product={product}
+          onAddToCart={(id) => onAddToCart(id)}
+        />,
+      ]}
     >
       <Meta
         title={`$ ${price.toLocaleString()}`}
