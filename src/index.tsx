@@ -9,6 +9,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
+import PrimaryLayout from './layout/Primary';
 import reportWebVitals from './reportWebVitals';
 
 const commerceLink = createHttpLink({
@@ -40,7 +41,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <PrimaryLayout>
+        <App />
+      </PrimaryLayout>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
