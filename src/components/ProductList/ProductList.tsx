@@ -6,7 +6,6 @@ const ProductList = ({
   data,
   loading,
   addingItem,
-  error,
   onAddToCart,
 }: ProductListProps) => {
   // console.log('ProductList', data);
@@ -48,7 +47,7 @@ const ProductList = ({
                 image: source,
               }}
               addingItem={addingItem}
-              onAddToCart={(id) => onAddToCart(id)}
+              onAddToCart={(id) => onAddToCart && onAddToCart(id)}
             />
           </List.Item>
         );

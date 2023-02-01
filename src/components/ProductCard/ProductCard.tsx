@@ -32,7 +32,7 @@ export const ProductCard = ({
         <AddToCartButton
           product={product}
           loading={addingItem}
-          onAddToCart={(id) => onAddToCart(id)}
+          onAddToCart={(id) => onAddToCart && onAddToCart(id)}
         />,
       ]}
     >

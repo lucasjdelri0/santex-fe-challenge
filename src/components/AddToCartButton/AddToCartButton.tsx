@@ -4,7 +4,7 @@ import { AddToCartButtonProps } from './AddToCartButton.props';
 
 export const AddToCartButton = ({
   product,
-  loading,
+  loading = false,
   onAddToCart,
 }: AddToCartButtonProps) => {
   const { variantId } = product;
@@ -14,7 +14,7 @@ export const AddToCartButton = ({
       type="dashed"
       icon={<ShoppingCartOutlined />}
       loading={loading}
-      onClick={() => onAddToCart(variantId)}
+      onClick={() => onAddToCart && onAddToCart(variantId)}
     >
       Add To Cart
     </Button>

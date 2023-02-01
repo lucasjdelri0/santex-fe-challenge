@@ -82,7 +82,6 @@ const App = (): JSX.Element => {
           data={data.products.items}
           loading={loading}
           addingItem={addLoading}
-          error={error}
           onAddToCart={(id) => handleAddToCart(id)}
         />
       )}
