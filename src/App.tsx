@@ -4,12 +4,15 @@ import { GET_PRODUCTS } from './graphql/queries';
 import { ADD_TO_CART, REMOVE_ALL_ORDERS } from './graphql/mutations';
 import { Button } from 'antd';
 import { useOrderContext } from './providers/OrderProvider';
+import './App.css';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const App = (): JSX.Element => {
   const { setSubTotal } = useOrderContext();
   const { data, loading, error } = useQuery(GET_PRODUCTS);
   const [addItemToOrder, { loading: addLoading }] = useMutation(ADD_TO_CART);
-  const [removeAllOrderLines] = useMutation(REMOVE_ALL_ORDERS);
+  const [removeAllOrderLines, { loading: removeLoading }] =
+    useMutation(REMOVE_ALL_ORDERS);
 
   if (loading) return <>'Fetching...'</>;
   if (error) return <>Fetch error! ${error.message}</>;
@@ -53,8 +56,27 @@ const App = (): JSX.Element => {
   // if (mError) console.log(`Submission error! ${mError.message}`);
 
   return (
-    <>
-      <Button onClick={handleRemoveAllOrders}>Clear Cart</Button>
+    <div
+      className="my-container"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+        padding: '0 24px',
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button
+          type="primary"
+          danger
+          icon={<DeleteOutlined />}
+          style={{ marginLeft: 24 }}
+          loading={removeLoading}
+          onClick={handleRemoveAllOrders}
+        >
+          Clean Cart
+        </Button>
+      </div>
       {data && (
         <ProductList
           data={data.products.items}
@@ -64,7 +86,7 @@ const App = (): JSX.Element => {
           onAddToCart={(id) => handleAddToCart(id)}
         />
       )}
-    </>
+    </div>
   );
 };
 

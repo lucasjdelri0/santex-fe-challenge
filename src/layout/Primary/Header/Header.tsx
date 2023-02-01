@@ -1,6 +1,5 @@
-import { Layout, Space, Badge, Button, Avatar, Typography } from 'antd';
+import { Layout, Space, Button, Typography } from 'antd';
 import {
-  GithubOutlined,
   HeartOutlined,
   ShoppingCartOutlined,
   UserOutlined,
@@ -10,7 +9,7 @@ import './Header.css';
 import { useOrderContext } from '../../../providers/OrderProvider';
 
 const { Header: AntHeader } = Layout;
-const { Link: AntLink } = Typography;
+const { Text } = Typography;
 
 export const Header = (props: HeaderProps): JSX.Element => {
   const { subTotal } = useOrderContext();
@@ -25,16 +24,19 @@ export const Header = (props: HeaderProps): JSX.Element => {
         alt="logo"
         style={{ width: 150 }}
       />
-      {/* {props.repoHref && (
-      <AntLink href={props.repoHref} target="_blank" className="ghLink">
-        <GithubOutlined className="headerLogo" />
-      </AntLink>
-    )} */}
       <Space align="center">
         <Button icon={<UserOutlined />} type="text" size="large" />
         <Button icon={<HeartOutlined />} type="text" size="large" />
         <Button icon={<ShoppingCartOutlined />} type="text" size="large" />
-        {`$ ${subTotal.toLocaleString()}`}
+        <Text
+          strong
+          style={{
+            fontSize: 14,
+            display: 'block',
+            minWidth: 72,
+            textAlign: 'right',
+          }}
+        >{`$ ${subTotal.toLocaleString()}`}</Text>
       </Space>
     </AntHeader>
   );

@@ -1,8 +1,7 @@
-import { Card, Space, Typography } from 'antd';
+import { Card } from 'antd';
 import AddToCartButton from '../AddToCartButton';
 import { ProductCardProps } from './ProductCard.props';
 
-const { Text } = Typography;
 const { Meta } = Card;
 
 export const ProductCard = ({
@@ -10,7 +9,7 @@ export const ProductCard = ({
   addingItem,
   onAddToCart,
 }: ProductCardProps) => {
-  const { productId, variantId, name, description, price, image } = product;
+  const { name, price, image } = product;
 
   return (
     <Card
