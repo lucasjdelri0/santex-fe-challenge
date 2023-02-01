@@ -9,13 +9,10 @@ import { DeleteOutlined } from '@ant-design/icons';
 
 const App = (): JSX.Element => {
   const { setSubTotal } = useOrderContext();
-  const { data, loading, error } = useQuery(GET_PRODUCTS);
+  const { data, loading } = useQuery(GET_PRODUCTS);
   const [addItemToOrder, { loading: addLoading }] = useMutation(ADD_TO_CART);
   const [removeAllOrderLines, { loading: removeLoading }] =
     useMutation(REMOVE_ALL_ORDERS);
-
-  if (loading) return <>'Fetching...'</>;
-  if (error) return <>Fetch error! ${error.message}</>;
 
   interface RemoveAllOrdersResponse {
     subTotal: number;
@@ -50,10 +47,6 @@ const App = (): JSX.Element => {
     } = result;
     setSubTotal(subTotal);
   };
-
-  // if (!called) console.log('Not called...');
-  // if (mLoading) console.log('Submitting...');
-  // if (mError) console.log(`Submission error! ${mError.message}`);
 
   return (
     <div

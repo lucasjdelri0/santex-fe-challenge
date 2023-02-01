@@ -8,14 +8,12 @@ const ProductList = ({
   addingItem,
   onAddToCart,
 }: ProductListProps) => {
-  // console.log('ProductList', data);
   return (
     <List
       grid={{
         gutter: 16,
       }}
       dataSource={data}
-      // dataSource={search ? nftData : undefined}
       pagination={{
         pageSize: 24,
         position: 'bottom',
@@ -34,7 +32,6 @@ const ProductList = ({
           variantList: { items },
         } = product;
         const productVariant = items[0];
-
         return (
           <List.Item key={productVariant?.id}>
             <ProductCard

@@ -1,6 +1,6 @@
-import { Product, ProductSummary } from '../graphql/queries';
+import { Product, VariantInfo } from '../graphql/types';
 
-export const productSummaries: ProductSummary[] = [
+export const productSummaries: VariantInfo[] = [
   {
     productId: 1,
     variantId: 3,

@@ -22,7 +22,7 @@ export const ProductCard = ({
       }}
       cover={
         <img
-          alt={image ? 'image' : 'no_image'}
+          alt={image ? 'prod-image' : 'no-image'}
           src={image}
           style={{ height: 200 }}
         />

@@ -1,7 +1,7 @@
-import { ProductSummary } from '../../graphql/queries';
+import { VariantInfo } from '../../graphql/types';
 
 export interface AddToCartButtonProps {
-  product: ProductSummary;
+  product: VariantInfo;
   loading?: boolean;
   onAddToCart?: (id: number) => void;
 }
