@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { ORDER_FRAGMENT } from './utils';
 
 export interface ProductAsset {
   name: string;
@@ -64,4 +65,13 @@ const GET_PRODUCTS = gql`
   }
 `;
 
-export { GET_PRODUCTS };
+const GET_ACTIVE_ORDER = gql`
+  {
+    activeOrder {
+      ...ActiveOrder
+    }
+  }
+  ${ORDER_FRAGMENT}
+`;
+
+export { GET_PRODUCTS, GET_ACTIVE_ORDER };
