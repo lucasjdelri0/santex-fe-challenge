@@ -1,49 +1,50 @@
 import ProductList from './components/ProductList';
 import { useMutation, useQuery } from '@apollo/client';
-import { products } from './graphql/queries';
-import {
-  ADD_TO_CART,
-  GET_ACTIVE_ORDER,
-  REMOVE_ALL_ORDERS,
-} from './graphql/mutations';
+import { GET_PRODUCTS } from './graphql/queries';
+import { ADD_TO_CART, REMOVE_ALL_ORDERS } from './graphql/mutations';
 import { Button } from 'antd';
 import { useOrderContext } from './providers/OrderProvider';
 
 const App = (): JSX.Element => {
   const { setSubTotal } = useOrderContext();
+  const { data, loading, error } = useQuery(GET_PRODUCTS);
+  const [addItemToOrder, { loading: addLoading }] = useMutation(ADD_TO_CART);
+  const [removeAllOrderLines] = useMutation(REMOVE_ALL_ORDERS);
 
-  const { loading: qLoading, error: qError, data: qData } = useQuery(products);
-  console.log('GET_PRODUCTS', qData, qLoading, qError);
+  if (loading) return <>'Fetching...'</>;
+  if (error) return <>Fetch error! ${error.message}</>;
 
-  // const { loading, error, data } = useQuery(GET_ACTIVE_ORDER);
-  // console.log('GET_ACTIVE_ORDER', data, loading, error);
+  interface RemoveAllOrdersResponse {
+    subTotal: number;
+  }
 
-  const [addItemToOrder, { data: mData, loading: mLoading, error: mError }] =
-    useMutation(ADD_TO_CART);
-  console.log('ADD_TO_CART', mData, mLoading, mError);
+  interface RemoveAllOrdersRequest {
+    removeAllOrderLines: RemoveAllOrdersResponse;
+  }
 
-  // const [
-  //   removeAllOrderLines,
-  //   { data: rData, loading: rLoading, error: rError },
-  // ] = useMutation(REMOVE_ALL_ORDERS);
-  // console.log('remove', rData, rLoading, rError);
+  interface RemoveAllOrdersData {
+    data: RemoveAllOrdersRequest;
+  }
 
-  if (qLoading) return <>'Fetching...'</>;
-  if (qError) return <>Fetch error! ${qError.message}</>;
+  const handleRemoveAllOrders = async (): Promise<void> => {
+    const result = (await removeAllOrderLines()) as RemoveAllOrdersData;
+    const {
+      data: {
+        removeAllOrderLines: { subTotal },
+      },
+    } = result;
+    setSubTotal(subTotal);
+  };
 
   const handleAddToCart = async (id: number): Promise<void> => {
     const result = await addItemToOrder({
       variables: { productVariantId: id, quantity: 1 },
     });
-    console.log('mData', mData);
-    console.log('result', result);
     const {
       data: {
         addItemToOrder: { subTotal },
       },
     } = result;
-    console.log('subTotal', subTotal);
-    localStorage.setItem('subTotal', JSON.stringify(subTotal));
     setSubTotal(subTotal);
   };
 
@@ -53,15 +54,13 @@ const App = (): JSX.Element => {
 
   return (
     <>
-      {/* <Button onClick={async () => await removeAllOrderLines()}>
-        Clear Cart
-      </Button> */}
-      {qData && (
+      <Button onClick={handleRemoveAllOrders}>Clear Cart</Button>
+      {data && (
         <ProductList
-          data={qData.products.items}
-          loading={qLoading}
-          addingItem={mLoading}
-          error={qError}
+          data={data.products.items}
+          loading={loading}
+          addingItem={addLoading}
+          error={error}
           onAddToCart={(id) => handleAddToCart(id)}
         />
       )}

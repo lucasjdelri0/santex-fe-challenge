@@ -39,7 +39,7 @@ export interface ProductSummary {
   image: string;
 }
 
-const products = gql`
+const GET_PRODUCTS = gql`
   query {
     products {
       totalItems
@@ -64,4 +64,4 @@ const products = gql`
   }
 `;
 
-export { products };
+export { GET_PRODUCTS };
