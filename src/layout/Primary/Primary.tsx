@@ -7,7 +7,7 @@ import './Primary.css';
 const { Content, Footer } = AntLayout;
 
 export const Primary = ({ children }: PrimaryProps): JSX.Element => (
-  <AntLayout style={{ maxHeight: '100vh', maxWidth: '100vw' }}>
+  <AntLayout style={{ minHeight: '100vh', minWidth: '100vw' }}>
     <Header
       repoHref="https://github.com/lucasjdelri0/santex-fe-challenge"
       badgeCount={7}

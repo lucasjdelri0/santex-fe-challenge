@@ -5,11 +5,11 @@ import { ProductListProps } from './ProductList.props';
 const ProductList = ({
   data,
   loading,
+  addingItem,
   error,
   onAddToCart,
 }: ProductListProps) => {
-  console.log('ProductList', data);
-
+  // console.log('ProductList', data);
   return (
     <List
       grid={{
@@ -29,27 +29,25 @@ const ProductList = ({
       }}
       loading={loading}
       renderItem={(product) => {
-        console.log('product', product);
-
         const {
           description,
           featuredAsset: { source },
           variantList: { items },
         } = product;
-
-        const variant = items[0];
+        const productVariant = items[0];
 
         return (
-          <List.Item key={variant?.id}>
+          <List.Item key={productVariant?.id}>
             <ProductCard
               product={{
-                productId: variant?.productId,
-                variantId: variant?.id,
-                name: variant?.name,
+                productId: productVariant?.productId,
+                variantId: productVariant?.id,
+                name: productVariant?.name,
                 description,
-                price: variant?.price,
+                price: productVariant?.price,
                 image: source,
               }}
+              addingItem={addingItem}
               onAddToCart={(id) => onAddToCart(id)}
             />
           </List.Item>

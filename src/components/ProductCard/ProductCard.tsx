@@ -5,7 +5,11 @@ import { ProductCardProps } from './ProductCard.props';
 const { Text } = Typography;
 const { Meta } = Card;
 
-export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
+export const ProductCard = ({
+  product,
+  addingItem,
+  onAddToCart,
+}: ProductCardProps) => {
   const { productId, variantId, name, description, price, image } = product;
 
   return (
@@ -28,6 +32,7 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
       actions={[
         <AddToCartButton
           product={product}
+          loading={addingItem}
           onAddToCart={(id) => onAddToCart(id)}
         />,
       ]}
