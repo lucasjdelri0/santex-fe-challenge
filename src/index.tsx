@@ -9,10 +9,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
+import PrimaryLayout from './layout/Primary';
+import OrderProvider from './providers/OrderProvider';
 import reportWebVitals from './reportWebVitals';
 
 const commerceLink = createHttpLink({
-  uri: 'https://shrouded-wave-86340.herokuapp.com/shop-api',
+  uri: 'https://demo.vendure.io/shop-api',
   headers: {
     authorization: localStorage.getItem('Auth-Token')
       ? `Bearer ${localStorage.getItem('Auth-Token')}`
@@ -40,7 +42,11 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <OrderProvider>
+        <PrimaryLayout>
+          <App />
+        </PrimaryLayout>
+      </OrderProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
